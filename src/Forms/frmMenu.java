@@ -76,8 +76,8 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemModelosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemModelosMousePressed
-//        frmModelos verfrmModelos = new frmModelos();
-//        verfrmModelos.show();
+        frmModelos verfrmModelos = new frmModelos();
+        verfrmModelos.show();
     }//GEN-LAST:event_jMenuItemModelosMousePressed
 
     private void jMenuItemMarcasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemMarcasMousePressed

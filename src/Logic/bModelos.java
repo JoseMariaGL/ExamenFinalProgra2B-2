@@ -1,7 +1,7 @@
 package Logic;
 
 import Setting.Conect;
-import Data.aMarcas;
+import Data.aModelos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class bMarcas {
+public class bModelos {
     
     private Conect mysql = new Conect();
     private Connection conect = mysql.ConectS();
@@ -19,14 +19,14 @@ public class bMarcas {
     
     public DefaultTableModel Show (String Search){
         DefaultTableModel model;
-        String [] Titles = {"ID", "Marca"};
+        String [] Titles = {"ID", "Modelo"};
         String [] Register = new String [2];
         TotalRecords = 0;
         model = new DefaultTableModel (null, Titles);
         if(Search.equals("")){
-            sSql = "SELECT * FROM marcas";
+            sSql = "SELECT * FROM modelos";
         } else {
-            sSql = "SELECT *FROM marcas WHERE NombreMarcas LIKE '%"+Search+"%'";
+            sSql = "SELECT *FROM modelos WHERE NombreModelos LIKE '%"+Search+"%'";
         }
         try {
             Statement st = conect.createStatement();
@@ -44,11 +44,11 @@ public class bMarcas {
         }
     }
     
-    public boolean Insert (aMarcas dts){
-        sSql = "INSERT INTO marcas (NombreMarcas) VALUES(?)";
+    public boolean Insert (aModelos dts){
+        sSql = "INSERT INTO modelos (NombreModelos) VALUES(?)";
         try {
             PreparedStatement pst = conect.prepareStatement(sSql);
-            pst.setString(1, dts.getNombreMarcas());
+            pst.setString(1, dts.getNombreModelo());
             int n = pst.executeUpdate();
             return n != 0;
         } catch (Exception e){
@@ -57,12 +57,12 @@ public class bMarcas {
         }
     }
     
-    public boolean Edit (aMarcas dts){
-        sSql = "UPDATE marcas SET NombreMarcas=? WHERE IDMarcas=?";
+    public boolean Edit (aModelos dts){
+        sSql = "UPDATE modelos SET NombreModelos=? WHERE IDModelos=?";
         try{
             PreparedStatement pst = conect.prepareStatement(sSql);
-            pst.setString(1, dts.getNombreMarcas());
-            pst.setInt(2, dts.getIDMarcas());
+            pst.setString(1, dts.getNombreModelo());
+            pst.setInt(2, dts.getIDModelo());
             int n = pst.executeUpdate();
             return n != 0;
         } catch (Exception e) {
@@ -71,11 +71,11 @@ public class bMarcas {
         }
     }
     
-    public boolean Delete (aMarcas dts){
-        sSql = "DELETE FROM marcas WHERE IDMarcas=?";
+    public boolean Delete (aModelos dts){
+        sSql = "DELETE FROM modelos WHERE IDModelos=?";
         try{
             PreparedStatement pst = conect.prepareStatement(sSql);
-            pst.setInt(1, dts.getIDMarcas());
+            pst.setInt(1, dts.getIDModelo());
             int n = pst.executeUpdate();
             return n!=0;
         } catch (Exception e) {

@@ -13,7 +13,7 @@ public class studentinfo extends javax.swing.JFrame {
     
     void Info() {
         Toolkit tool = Toolkit.getDefaultToolkit();
-        Image image = tool.createImage(System.getProperty("user.dir")+"\\student\\3090-20-27201.jgg");
+        Image image = tool.createImage(System.getProperty("user.dir")+"\\student\\3090-20-27201.jpg");
         jLabelPhoto.setIcon(new ImageIcon(image.getScaledInstance(150, 200, Image.SCALE_AREA_AVERAGING)));
     }
 
