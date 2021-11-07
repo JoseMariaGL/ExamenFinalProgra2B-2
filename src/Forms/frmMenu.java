@@ -76,20 +76,22 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemModelosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemModelosMousePressed
-        // TODO add your handling code here:
+//        frmModelos verfrmModelos = new frmModelos();
+//        verfrmModelos.show();
     }//GEN-LAST:event_jMenuItemModelosMousePressed
 
     private void jMenuItemMarcasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemMarcasMousePressed
-        // TODO add your handling code here:
+        frmMarcas verfrmMarcas = new frmMarcas();
+        verfrmMarcas.show();
     }//GEN-LAST:event_jMenuItemMarcasMousePressed
 
     private void jMenuItemTelefonosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemTelefonosMousePressed
-        frmTelefonos verfrmTelefonos = new frmTelefonos();        
+        frmTelefonos verfrmTelefonos = new frmTelefonos();
         verfrmTelefonos.show();
     }//GEN-LAST:event_jMenuItemTelefonosMousePressed
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
-        studentinfo verstudentinfo = new studentinfo();        
+        studentinfo verstudentinfo = new studentinfo();
         verstudentinfo.show();
     }//GEN-LAST:event_jMenuItem1MousePressed
     

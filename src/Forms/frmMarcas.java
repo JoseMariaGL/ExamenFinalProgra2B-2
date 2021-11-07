@@ -1,18 +1,18 @@
 package Forms;
 
-import Data.aTelefonos;
-import Logic.bTelefonos;
+import Data.aMarcas;
+import Logic.bMarcas;
 import Setting.Conect;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class frmTelefonos extends javax.swing.JFrame {
+public class frmMarcas extends javax.swing.JFrame {
     
     Conect conect = new Conect();
     Connection cn = conect.ConectS();
     
-    public frmTelefonos() {
+    public frmMarcas() {
         initComponents();
         this.setLocationRelativeTo(null);
         Show("");
@@ -24,9 +24,10 @@ public class frmTelefonos extends javax.swing.JFrame {
     void Show(String Search){
         try {
             DefaultTableModel model;
-            bTelefonos func = new bTelefonos();
+            bMarcas func = new bMarcas();
             model = func.Show(Search);
-            jTableTelefonos.setModel(model);
+            
+            jTableMarcas.setModel(model);
             jLabelTotalRecords.setText("Total registrados "+Integer.toString(func.TotalRecords));
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -34,42 +35,29 @@ public class frmTelefonos extends javax.swing.JFrame {
     }
     
     void Disable(){
-        jLabelIDTelefono.setEnabled(false);
-        jTextFieldIMEI.setEnabled(false);
-        jTextFieldModelo.setEnabled(false);
+        jLabelIDMarca.setEnabled(false);
         jTextFieldMarca.setEnabled(false);
-        jTextFieldMACAdress.setEnabled(false);
-        jLabelIDTelefono.setText("");
-        jTextFieldIMEI.setText("");
-        jTextFieldModelo.setText("");
+        jLabelIDMarca.setText("");
         jTextFieldMarca.setText("");
-        jTextFieldMACAdress.setText("");
         jButtonGuardar.setEnabled(false);
         jButtonEliminar.setEnabled(false);
     }
+    
     void Enable(){
-        jTextFieldIMEI.setEnabled(true);
-        jTextFieldModelo.setEnabled(true);
         jTextFieldMarca.setEnabled(true);
-        jTextFieldMACAdress.setEnabled(true);
-        jLabelIDTelefono.setText("");
-        jTextFieldIMEI.setText("");
-        jTextFieldModelo.setText("");
+        jLabelIDMarca.setText("");
         jTextFieldMarca.setText("");
-        jTextFieldMACAdress.setText("");
         jButtonGuardar.setEnabled(true);
         jButtonEliminar.setEnabled(true);
     }
+    
     void InsertEdit(){
-        if (jTextFieldIMEI.getText().equals("") || jTextFieldModelo.getText().equals("") || jTextFieldMarca.getText().equals("") || jTextFieldMACAdress.getText().equals("")) {
+        if (jTextFieldMarca.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Debe llenar todos los campos");
         } else {
-            aTelefonos dts = new aTelefonos();
-            bTelefonos func = new bTelefonos();
-            dts.setIMEI(jTextFieldIMEI.getText());
-            dts.setModelo(jTextFieldModelo.getText());
-            dts.setMarca(jTextFieldMarca.getText());
-            dts.setMACAdress(jTextFieldMACAdress.getText());
+            aMarcas dts = new aMarcas();
+            bMarcas func = new bMarcas();
+            dts.setNombreMarcas(jTextFieldMarca.getText());
             if (accion.equals("Guardar")) {
                 if (func.Insert(dts)) {
                     JOptionPane.showMessageDialog(rootPane, "Registrado correctamente");
@@ -77,7 +65,7 @@ public class frmTelefonos extends javax.swing.JFrame {
                     Disable();
                 }
             }else if (accion.equals("Editar")){
-                dts.setIDTelefono(Integer.parseInt(jLabelIDTelefono.getText()));
+                dts.setIDMarcas(Integer.parseInt(jLabelIDMarca.getText()));
                 JOptionPane.showMessageDialog(rootPane, "Editado correctamente");
                 if (func.Edit(dts)) {
                     Show("");
@@ -88,12 +76,13 @@ public class frmTelefonos extends javax.swing.JFrame {
     }
     
     void Delete(){
-        if (!jLabelIDTelefono.getText().equals("")) {
+        if (!jLabelIDMarca.getText().equals("")) {
             int confirmacion = JOptionPane.showConfirmDialog(this, "Seguro de eliminar?","Confirmar",2);
             if (confirmacion == 0) {
-                aTelefonos dts = new aTelefonos();
-                bTelefonos func = new bTelefonos();
-                dts.setIDTelefono(Integer.parseInt(jLabelIDTelefono.getText()));
+                aMarcas dts = new aMarcas();
+                bMarcas func = new bMarcas();
+                
+                dts.setIDMarcas(Integer.parseInt(jLabelIDMarca.getText()));
                 func.Delete(dts);
                 Show("");
                 Disable();
@@ -107,24 +96,18 @@ public class frmTelefonos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableTelefonos = new javax.swing.JTable();
+        jTableMarcas = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextFieldIMEI = new javax.swing.JTextField();
-        jTextFieldModelo = new javax.swing.JTextField();
         jTextFieldMarca = new javax.swing.JTextField();
-        jTextFieldMACAdress = new javax.swing.JTextField();
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButtonCancenlar = new javax.swing.JButton();
         jLabelTotalRecords = new javax.swing.JLabel();
-        jLabelIDTelefono = new javax.swing.JLabel();
+        jLabelIDMarca = new javax.swing.JLabel();
         jTextFieldSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -132,7 +115,7 @@ public class frmTelefonos extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTableTelefonos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMarcas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -143,18 +126,18 @@ public class frmTelefonos extends javax.swing.JFrame {
 
             }
         ));
-        jTableTelefonos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTableTelefonosMousePressed(evt);
+                jTableMarcasMousePressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableTelefonos);
+        jScrollPane1.setViewportView(jTableMarcas);
 
         jPanel2.setBackground(new java.awt.Color(102, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Teléfonos");
+        jLabel1.setText("Marcas");
 
         jPanel3.setBackground(new java.awt.Color(255, 51, 51));
 
@@ -191,24 +174,9 @@ public class frmTelefonos extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("IMEI");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Modelo");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Marca");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("MAC Adress");
-
-        jTextFieldIMEI.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jTextFieldModelo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Marca");
 
         jTextFieldMarca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jTextFieldMACAdress.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jButtonNuevo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonNuevo.setText("Nuevo");
@@ -242,8 +210,8 @@ public class frmTelefonos extends javax.swing.JFrame {
             }
         });
 
-        jLabelIDTelefono.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabelIDTelefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelIDMarca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelIDMarca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jTextFieldSearch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -266,57 +234,36 @@ public class frmTelefonos extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldIMEI, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonNuevo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButtonGuardar)))
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButtonCancenlar)
-                                .addGap(95, 95, 95)
-                                .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonEliminar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldMACAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jButtonCancenlar)
+                        .addGap(48, 48, 48)
+                        .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(jButtonEliminar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelTotalRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelIDTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(328, 328, 328))
+                .addComponent(jLabelIDMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(226, 226, 226))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jLabelIDTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelIDMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFieldIMEI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldMACAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonNuevo)
@@ -334,7 +281,7 @@ public class frmTelefonos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +296,7 @@ public class frmTelefonos extends javax.swing.JFrame {
         jButtonEliminar.setEnabled(false);
         jButtonGuardar.setText("Guardar");
         accion = "Guardar";
-        jTextFieldIMEI.requestFocus();
+        jTextFieldMarca.requestFocus();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -368,18 +315,16 @@ public class frmTelefonos extends javax.swing.JFrame {
         Show(jTextFieldSearch.getText());
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
 
-    private void jTableTelefonosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTelefonosMousePressed
+    private void jTableMarcasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMarcasMousePressed
         jButtonGuardar.setText("Editar");
         Enable();
         jButtonEliminar.setEnabled(true);
         accion = "Editar";
-        int Row = jTableTelefonos.rowAtPoint(evt.getPoint());
-        jLabelIDTelefono.setText(jTableTelefonos.getValueAt(Row, 0).toString());
-        jTextFieldIMEI.setText(jTableTelefonos.getValueAt(Row, 1).toString());
-        jTextFieldModelo.setText(jTableTelefonos.getValueAt(Row, 2).toString());
-        jTextFieldMarca.setText(jTableTelefonos.getValueAt(Row, 3).toString());
-        jTextFieldMACAdress.setText(jTableTelefonos.getValueAt(Row, 4).toString());
-    }//GEN-LAST:event_jTableTelefonosMousePressed
+        int Row = jTableMarcas.rowAtPoint(evt.getPoint());
+        
+        jLabelIDMarca.setText(jTableMarcas.getValueAt(Row, 0).toString());
+        jTextFieldMarca.setText(jTableMarcas.getValueAt(Row, 1).toString());
+    }//GEN-LAST:event_jTableMarcasMousePressed
 
     public static void main(String args[]) {
         try {
@@ -390,18 +335,18 @@ public class frmTelefonos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmTelefonos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmMarcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmTelefonos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmMarcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmTelefonos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmMarcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmTelefonos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmMarcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmTelefonos().setVisible(true);
+                new frmMarcas().setVisible(true);
             }
         });
     }
@@ -413,20 +358,14 @@ public class frmTelefonos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabelIDTelefono;
+    private javax.swing.JLabel jLabelIDMarca;
     private javax.swing.JLabel jLabelTotalRecords;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableTelefonos;
-    private javax.swing.JTextField jTextFieldIMEI;
-    private javax.swing.JTextField jTextFieldMACAdress;
+    private javax.swing.JTable jTableMarcas;
     private javax.swing.JTextField jTextFieldMarca;
-    private javax.swing.JTextField jTextFieldModelo;
     private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
 }
